@@ -86,5 +86,17 @@ namespace Aes
         {
             tbResult.Text = string.Empty;
         }
+
+        private void btnNewKey_Click(object sender, EventArgs e)
+        {
+            var random = new Random();
+            tbKey.Text =
+                $"{random.Next(0x1000000):X6}" +
+                $"{random.Next(0x1000000):X6}" +
+                $"{random.Next(0x1000000):X6}" +
+                $"{random.Next(0x1000000):X6}" +
+                $"{random.Next(0x1000000):X6}" +
+                $"{random.Next(0x100):X2}";
+        }
     }
 }

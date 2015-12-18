@@ -162,6 +162,7 @@
             this.btnNewKey.TabIndex = 19;
             this.btnNewKey.Text = "NEW";
             this.btnNewKey.UseVisualStyleBackColor = true;
+            this.btnNewKey.Click += new System.EventHandler(this.btnNewKey_Click);
             // 
             // FormAes
             // 
