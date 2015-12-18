@@ -48,7 +48,7 @@ namespace Aes
         public State[] States { get; private set; }
         public AesCipher(byte[] b)
         {
-            var length = b.Length / 16 + 1;
+            var length = (b.Length - 1) / 16 + 1;
             States = new State[length];
 
             for (var i = 0; i < length; i++)
@@ -66,9 +66,27 @@ namespace Aes
             }
         }
 
+        public void CipherInvStates(Key key)
+        {
+            for (var i = 0; i < States.Length; i++)
+            {
+                States[i] = CipherInv(key, States[i]);
+            }
+        }
+
         public override string ToString()
         {
             return States.Aggregate(string.Empty, (current, state) => current + state.ToString());
+        }
+
+        public byte[] GetBytes()
+        {
+            return States.SelectMany(x => x.GetBytes()).ToArray();
+        }
+
+        public string ToMatrixString()
+        {
+            return States.Aggregate(string.Empty, (current, state) => current + state.ToMatrixString());
         }
     }
 }

@@ -50,31 +50,29 @@ namespace Aes
             var key = ReadKey();
 
             var inputPlain = ReadAsciiString(tbPlain.Text);
-            var inputState = new State(inputPlain);
-            Console.Out.WriteLine("state:\n" + inputState.ToMatrixString());
+            var aes = new AesCipher(inputPlain);
+            Console.Out.WriteLine("state:\n" + aes.ToMatrixString());
 
-            var cipherState = AesCipher.Cipher(key, inputState);
+            aes.CipherStates(key);
 
-            Console.Out.WriteLine("result:\n" + cipherState.ToMatrixString());
+            Console.Out.WriteLine("result:\n" + aes.ToMatrixString());
 
-            //tbResult.Text = System.Convert.ToBase64String(cipherState.GetBytes());
-            tbResult.Text = cipherState.ToString();
+            tbResult.Text = aes.ToString();
         }
 
         private void btnDecode_Click(object sender, EventArgs e)
         {
             var key = ReadKey();
 
-            //var decodeCipher = System.Convert.FromBase64String(tbResult.Text);
             var decodeCipher = ReadHexString(tbResult.Text);
-            var decodeState = new State(decodeCipher);
-            Console.Out.WriteLine("state:\n" + decodeState.ToMatrixString());
+            var aes = new AesCipher(decodeCipher);
+            Console.Out.WriteLine("state:\n" + aes.ToMatrixString());
 
-            var normalState = AesCipher.CipherInv(key, decodeState);
+            aes.CipherInvStates(key);
 
-            Console.Out.WriteLine("result:\n" + normalState.ToMatrixString());
+            Console.Out.WriteLine("result:\n" + aes.ToMatrixString());
 
-            tbPlain.Text = WriteAsciiString(normalState.GetBytes());
+            tbPlain.Text = WriteAsciiString(aes.GetBytes());
         }
 
         private void btnClearPlain_Click(object sender, EventArgs e)

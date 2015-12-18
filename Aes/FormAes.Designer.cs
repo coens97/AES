@@ -49,7 +49,7 @@
             this.tbPlain.Name = "tbPlain";
             this.tbPlain.Size = new System.Drawing.Size(386, 20);
             this.tbPlain.TabIndex = 0;
-            this.tbPlain.Text = "12345689abcdefgh";
+            this.tbPlain.Text = "Super secret message";
             // 
             // tbKey
             // 
@@ -168,7 +168,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(592, 240);
+            this.ClientSize = new System.Drawing.Size(520, 240);
             this.Controls.Add(this.btnNewKey);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
