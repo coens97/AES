@@ -1,4 +1,7 @@
-﻿namespace Aes
+﻿using System.Collections.Generic;
+using System.Linq;
+
+namespace Aes
 {
     public class AesCipher
     {
@@ -40,6 +43,32 @@
                 .SubBytesInv()
                 .AddRoundKey(key, 0);
             return state;
+        }
+
+        public State[] States { get; private set; }
+        public AesCipher(byte[] b)
+        {
+            var length = b.Length / 16 + 1;
+            States = new State[length];
+
+            for (var i = 0; i < length; i++)
+            {
+                var bytes = b.Skip(i * 16).Take(16).ToArray();
+                States[i] = new State(bytes);
+            }
+        }
+
+        public void CipherStates(Key key)
+        {
+            for (var i = 0; i < States.Length; i++)
+            {
+                States[i] = Cipher(key, States[i]);
+            }
+        }
+
+        public override string ToString()
+        {
+            return States.Aggregate(string.Empty, (current, state) => current + state.ToString());
         }
     }
 }
