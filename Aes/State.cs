@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Aes
 {
@@ -150,7 +146,8 @@ namespace Aes
             {
                 for (var j = 0; j < NrofCol; j++)
                 {
-                    _buf[i, j] = b[i + (NrofRow * j)];
+                    var index = i + (NrofRow * j);
+                    _buf[i, j] = index < b .Count ? b[index] : (byte)0x0;
                 }
             }
         }

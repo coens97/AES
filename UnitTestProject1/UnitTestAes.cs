@@ -16,6 +16,19 @@ namespace UnitTestProject
             return new State(inputPlain);
         }
 
+        /// <summary>
+        /// Test state which is smaller than the state
+        /// </summary>
+        /// <returns></returns>
+        [TestMethod]
+        public void CreateStateWithPadding()
+        { 
+            byte[] inputData = { 0xde, 0xad, 0xbe, 0xef,
+                                     0xde, 0xad, 0xbe, 0xef};
+            var state = new State(inputData);
+            Assert.AreEqual(state.ToString(), "DEADBEEFDEADBEEF0000000000000000");
+        }
+
         [TestMethod]
         public void TestSubBytes()
         {
