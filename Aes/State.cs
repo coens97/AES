@@ -281,5 +281,18 @@ namespace Aes
             }
             return (s);
         }
+
+        public byte[] GetBytes()
+        {
+            var bytes = new byte[_buf.Length];
+            for (var i = 0; i < _buf.GetLength(1); i++)
+            {
+                for (var j = 0; j < _buf.GetLength(0); j++)
+                {
+                    bytes[i * _buf.GetLength(1) + j] += _buf[j, i];
+                }
+            }
+            return bytes;
+        }
     }
 }

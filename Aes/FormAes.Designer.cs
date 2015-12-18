@@ -33,13 +33,13 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.btnTest = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnDecode = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.tbResult = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnNewKey = new System.Windows.Forms.Button();
-            this.btnClearPlain = new System.Windows.Forms.Button();
             this.btnClearCipher = new System.Windows.Forms.Button();
+            this.btnClearPlain = new System.Windows.Forms.Button();
+            this.btnNewKey = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -91,14 +91,15 @@
             this.btnTest.UseVisualStyleBackColor = false;
             this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
-            // button1
+            // btnDecode
             // 
-            this.button1.Location = new System.Drawing.Point(249, 40);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(179, 42);
-            this.button1.TabIndex = 15;
-            this.button1.Text = "▲";
-            this.button1.UseVisualStyleBackColor = true;
+            this.btnDecode.Location = new System.Drawing.Point(249, 40);
+            this.btnDecode.Name = "btnDecode";
+            this.btnDecode.Size = new System.Drawing.Size(179, 42);
+            this.btnDecode.TabIndex = 15;
+            this.btnDecode.Text = "▲";
+            this.btnDecode.UseVisualStyleBackColor = true;
+            this.btnDecode.Click += new System.EventHandler(this.btnDecode_Click);
             // 
             // label2
             // 
@@ -125,14 +126,33 @@
             this.groupBox1.Controls.Add(this.btnTest);
             this.groupBox1.Controls.Add(this.tbPlain);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.button1);
+            this.groupBox1.Controls.Add(this.btnDecode);
             this.groupBox1.Location = new System.Drawing.Point(13, 35);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(501, 126);
             this.groupBox1.TabIndex = 18;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Secret text";
-            this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // btnClearCipher
+            // 
+            this.btnClearCipher.Location = new System.Drawing.Point(434, 87);
+            this.btnClearCipher.Name = "btnClearCipher";
+            this.btnClearCipher.Size = new System.Drawing.Size(51, 20);
+            this.btnClearCipher.TabIndex = 21;
+            this.btnClearCipher.Text = "X";
+            this.btnClearCipher.UseVisualStyleBackColor = true;
+            this.btnClearCipher.Click += new System.EventHandler(this.btnClearCipher_Click);
+            // 
+            // btnClearPlain
+            // 
+            this.btnClearPlain.Location = new System.Drawing.Point(438, 14);
+            this.btnClearPlain.Name = "btnClearPlain";
+            this.btnClearPlain.Size = new System.Drawing.Size(51, 20);
+            this.btnClearPlain.TabIndex = 20;
+            this.btnClearPlain.Text = "X";
+            this.btnClearPlain.UseVisualStyleBackColor = true;
+            this.btnClearPlain.Click += new System.EventHandler(this.btnClearPlain_Click);
             // 
             // btnNewKey
             // 
@@ -143,36 +163,17 @@
             this.btnNewKey.Text = "NEW";
             this.btnNewKey.UseVisualStyleBackColor = true;
             // 
-            // btnClearPlain
-            // 
-            this.btnClearPlain.Location = new System.Drawing.Point(438, 14);
-            this.btnClearPlain.Name = "btnClearPlain";
-            this.btnClearPlain.Size = new System.Drawing.Size(51, 20);
-            this.btnClearPlain.TabIndex = 20;
-            this.btnClearPlain.Text = "X";
-            this.btnClearPlain.UseVisualStyleBackColor = true;
-            // 
-            // btnClearCipher
-            // 
-            this.btnClearCipher.Location = new System.Drawing.Point(434, 87);
-            this.btnClearCipher.Name = "btnClearCipher";
-            this.btnClearCipher.Size = new System.Drawing.Size(51, 20);
-            this.btnClearCipher.TabIndex = 21;
-            this.btnClearCipher.Text = "X";
-            this.btnClearCipher.UseVisualStyleBackColor = true;
-            // 
             // FormAes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(646, 240);
+            this.ClientSize = new System.Drawing.Size(592, 240);
             this.Controls.Add(this.btnNewKey);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.tbKey);
             this.Name = "FormAes";
-            this.Text = "Form1";
-            this.Load += new System.EventHandler(this.FormAes_Load);
+            this.Text = "Don\'t eavesdrop please";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
@@ -187,7 +188,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button btnTest;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button btnDecode;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbResult;
         private System.Windows.Forms.GroupBox groupBox1;
