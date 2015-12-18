@@ -11,6 +11,8 @@ namespace Aes
         private const int NrofRow = 4;
         private const int NrofCol = 4;
         private byte[,] _buf;
+
+        #region mul
         //multiplication tables taken from http://en.wikipedia.org/wiki/Rijndael_mix_columns
         private static readonly byte[] _mul2 = {
             0x00,0x02,0x04,0x06,0x08,0x0a,0x0c,0x0e,0x10,0x12,0x14,0x16,0x18,0x1a,0x1c,0x1e,
@@ -50,7 +52,7 @@ namespace Aes
             0x0b,0x08,0x0d,0x0e,0x07,0x04,0x01,0x02,0x13,0x10,0x15,0x16,0x1f,0x1c,0x19,0x1a
         };
 
-        private static readonly byte[] _mul09 = {
+        private static readonly byte[] _mul9 = {
             0x00,0x09,0x12,0x1b,0x24,0x2d,0x36,0x3f,0x48,0x41,0x5a,0x53,0x6c,0x65,0x7e,0x77,
             0x90,0x99,0x82,0x8b,0xb4,0xbd,0xa6,0xaf,0xd8,0xd1,0xca,0xc3,0xfc,0xf5,0xee,0xe7,
             0x3b,0x32,0x29,0x20,0x1f,0x16,0x0d,0x04,0x73,0x7a,0x61,0x68,0x57,0x5e,0x45,0x4c,
@@ -126,6 +128,8 @@ namespace Aes
             0xd7,0xd9,0xcb,0xc5,0xef,0xe1,0xf3,0xfd,0xa7,0xa9,0xbb,0xb5,0x9f,0x91,0x83,0x8d
         };
 
+        #endregion
+
 
         private State()
         {
@@ -196,22 +200,25 @@ namespace Aes
 
         public State SubBytesInv()
         {
-            // TODO
-            return (null);
+            throw new NotImplementedException();
         }
 
         public State ShiftRowsInv()
         {
-            // TODO
-
-            return (null);
+            throw new NotImplementedException();
         }
 
         public State MixColumnsInv()
         {
-            // TODO
-
-            return (null);
+            var s = new State();
+            for (var c = 0; c < NrofCol; c++)
+            {
+                s._buf[0, c] = (byte)(_mul14[_buf[0, c]] ^ _mul11[_buf[1, c]] ^ _mul13[_buf[2, c]] ^  _mul9[_buf[3, c]]);
+                s._buf[1, c] = (byte)( _mul9[_buf[0, c]] ^ _mul14[_buf[1, c]] ^ _mul11[_buf[2, c]] ^ _mul13[_buf[3, c]]);
+                s._buf[2, c] = (byte)(_mul13[_buf[0, c]] ^  _mul9[_buf[1, c]] ^ _mul14[_buf[2, c]] ^ _mul11[_buf[3, c]]);
+                s._buf[3, c] = (byte)(_mul11[_buf[0, c]] ^ _mul13[_buf[1, c]] ^  _mul9[_buf[2, c]] ^ _mul14[_buf[3, c]]);
+            }
+            return (s);
         }
 
         public State AddRoundKey(Key key, int round)
