@@ -27,7 +27,7 @@
             state = state
                 .AddRoundKey(key, 10);
 
-            for (var i = 10; i  > 0; i--)
+            for (var i = 9; i  > 0; i--)
             {
                 state = state
                     .ShiftRowsInv()

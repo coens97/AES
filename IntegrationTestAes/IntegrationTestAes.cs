@@ -58,7 +58,9 @@ namespace IntegrationTestAes
 
             var cipher = AesCipher.Cipher(key, inputState);
 
-            Assert.AreEqual(cipher.ToString(), expectedState.ToString());
+            var normal = AesCipher.CipherInv(key, cipher);
+
+            Assert.AreEqual(inputState.ToString(), normal.ToString());
         }
     }
 }
