@@ -200,12 +200,32 @@ namespace Aes
 
         public State SubBytesInv()
         {
-            throw new NotImplementedException();
+            var s = new State();
+
+            for (var i = 0; i < NrofRow; i++)
+            {
+                for (var j = 0; j < NrofCol; j++)
+                {
+                    s._buf[i, j] = Sbox.sboxInverse[_buf[i, j]];
+                    //Console.Out.WriteLine("state[" + i + "," + j + "]=" + buf[i, j] + "--->" + s.buf[i, j]);
+                }
+            }
+            return (s);
         }
 
         public State ShiftRowsInv()
         {
-            throw new NotImplementedException();
+            var s = new State();
+
+            for (var i = 0; i < NrofRow; i++)
+            {
+                for (var j = 0; j < NrofCol; j++)
+                {
+                    s._buf[i, j] = _buf[i, (j - i + 4) % 4];
+                    //Console.Out.WriteLine("state[" + i + "," + j + "]=" + s.buf[i, j]);
+                }
+            }
+            return (s);
         }
 
         public State MixColumnsInv()

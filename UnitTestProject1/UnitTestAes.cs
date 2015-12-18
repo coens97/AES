@@ -7,39 +7,61 @@ namespace UnitTestProject
     [TestClass]
     public class UnitTestAes
     {
+        public State GetStartState()
+        {
+            var s = "12345689abcdefgh";
+            var encoding = System.Text.Encoding.UTF8;
+            var inputPlain = encoding.GetBytes(s);
+
+            return new State(inputPlain);
+        }
+
         [TestMethod]
         public void TestSubBytes()
         {
             // test vector: according to Casper Schellekens
-            var s = "12345689abcdefgh";
             byte[] expectedStateData = { 0xc7, 0x23, 0xc3, 0x18, 
                                      0x96, 0x05, 0x07, 0x12, 
                                      0xef, 0xaa, 0xfb, 0x43, 
                                      0x4d, 0x33, 0x85, 0x45 };
             var expectedState = new State(expectedStateData);
-            var encoding = System.Text.Encoding.UTF8;
-            var inputPlain = encoding.GetBytes(s);
 
-            var start = new State(inputPlain);
+            var start = GetStartState();
 
             start = start.SubBytes();
 
             Console.Out.WriteLine("subBytes:\n" + start); 
             Assert.AreEqual(start.ToString(), expectedState.ToString());
         }
+
+        [TestMethod]
+        public void TestSubBytesInv()
+        {
+            // test vector: according to Casper Schellekens
+            byte[] expectedStateData = { 0xc7, 0x23, 0xc3, 0x18,
+                                     0x96, 0x05, 0x07, 0x12,
+                                     0xef, 0xaa, 0xfb, 0x43,
+                                     0x4d, 0x33, 0x85, 0x45 };
+            var expectedState = GetStartState();
+
+            var start = new State(expectedStateData);
+
+            start = start.SubBytesInv();
+
+            Console.Out.WriteLine("subBytes:\n" + start);
+            Assert.AreEqual(start.ToString(), expectedState.ToString());
+        }
+
         [TestMethod]
         public void TestShiftRows()
         {
-            var s = "12345689abcdefgh";
             byte[] expectedStateData = { 0x31, 0x36, 0x63, 0x68, 
                                          0x35, 0x62, 0x67, 0x34, 
                                          0x61, 0x66, 0x33, 0x39, 
                                          0x65, 0x32, 0x38, 0x64  };
             var expectedState = new State(expectedStateData);
-            var encoding = System.Text.Encoding.UTF8;
-            var inputPlain = encoding.GetBytes(s);
 
-            var start = new State(inputPlain);
+            var start = GetStartState();
 
             start = start.ShiftRows();
 
@@ -48,18 +70,33 @@ namespace UnitTestProject
         }
 
         [TestMethod]
+        public void TestShiftRowsInv()
+        {
+            byte[] expectedStateData = { 0x31, 0x36, 0x63, 0x68,
+                                         0x35, 0x62, 0x67, 0x34,
+                                         0x61, 0x66, 0x33, 0x39,
+                                         0x65, 0x32, 0x38, 0x64  };
+            var expectedState = GetStartState(); 
+
+            var start = new State(expectedStateData);
+
+            start = start.ShiftRowsInv();
+
+            Console.Out.WriteLine("shift:\n" + start);
+            Assert.AreEqual(start.ToString(), expectedState.ToString());
+        }
+
+        [TestMethod]
         public void TestMixColumns()
         {
-            var s = "12345689abcdefgh";
+            
             byte[] expectedStateData = { 0x33, 0x34, 0x39, 0x3a, 
                                          0x31, 0x28, 0x38, 0x23, 
                                          0x63, 0x64, 0x69, 0x6a, 
                                          0x6f, 0x68, 0x75, 0x7e  };
             var expectedState = new State(expectedStateData);
-            var encoding = System.Text.Encoding.UTF8;
-            var inputPlain = encoding.GetBytes(s);
 
-            var start = new State(inputPlain);
+            var start = GetStartState();
 
             start = start.MixColumns();
 
@@ -75,13 +112,10 @@ namespace UnitTestProject
                                          0x31, 0x28, 0x38, 0x23,
                                          0x63, 0x64, 0x69, 0x6a,
                                          0x6f, 0x68, 0x75, 0x7e  };
-            var expectedString = "12345689abcdefgh";
 
             var startState = new State(startStateData);
-            var encoding = System.Text.Encoding.UTF8;
-            var expectedPlain = encoding.GetBytes(expectedString);
 
-            var expectedState = new State(expectedPlain);
+            var expectedState = GetStartState();
 
             startState = startState.MixColumnsInv();
 
