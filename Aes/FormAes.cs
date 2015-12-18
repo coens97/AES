@@ -44,5 +44,15 @@ namespace Aes
             var inputState = new State(inputPlain);
             Console.Out.WriteLine("state:\n" + inputState.ToMatrixString());
         }
+
+        private void FormAes_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
