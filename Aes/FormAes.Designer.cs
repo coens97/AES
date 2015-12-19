@@ -44,8 +44,16 @@
             this.rbCbc = new System.Windows.Forms.RadioButton();
             this.rbEcb = new System.Windows.Forms.RadioButton();
             this.label3 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.btnDecrypt = new System.Windows.Forms.Button();
+            this.btnEncrypt = new System.Windows.Forms.Button();
+            this.btnSaveImage = new System.Windows.Forms.Button();
+            this.btnLoadImage = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // tbPlain
@@ -215,11 +223,77 @@
             this.label3.TabIndex = 20;
             this.label3.Text = "Mode";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.pictureBox);
+            this.groupBox3.Controls.Add(this.btnDecrypt);
+            this.groupBox3.Controls.Add(this.btnEncrypt);
+            this.groupBox3.Controls.Add(this.btnSaveImage);
+            this.groupBox3.Controls.Add(this.btnLoadImage);
+            this.groupBox3.Location = new System.Drawing.Point(7, 231);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(501, 319);
+            this.groupBox3.TabIndex = 21;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Secret images";
+            // 
+            // pictureBox
+            // 
+            this.pictureBox.BackColor = System.Drawing.Color.White;
+            this.pictureBox.Location = new System.Drawing.Point(91, 20);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(398, 293);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox.TabIndex = 23;
+            this.pictureBox.TabStop = false;
+            // 
+            // btnDecrypt
+            // 
+            this.btnDecrypt.Location = new System.Drawing.Point(9, 161);
+            this.btnDecrypt.Name = "btnDecrypt";
+            this.btnDecrypt.Size = new System.Drawing.Size(75, 42);
+            this.btnDecrypt.TabIndex = 22;
+            this.btnDecrypt.Text = "Decrypt";
+            this.btnDecrypt.UseVisualStyleBackColor = true;
+            // 
+            // btnEncrypt
+            // 
+            this.btnEncrypt.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.btnEncrypt.Location = new System.Drawing.Point(9, 114);
+            this.btnEncrypt.Margin = new System.Windows.Forms.Padding(2);
+            this.btnEncrypt.Name = "btnEncrypt";
+            this.btnEncrypt.Size = new System.Drawing.Size(75, 42);
+            this.btnEncrypt.TabIndex = 22;
+            this.btnEncrypt.Text = "Encrypt";
+            this.btnEncrypt.UseVisualStyleBackColor = false;
+            this.btnEncrypt.Click += new System.EventHandler(this.btnEncrypt_Click);
+            // 
+            // btnSaveImage
+            // 
+            this.btnSaveImage.Location = new System.Drawing.Point(9, 67);
+            this.btnSaveImage.Name = "btnSaveImage";
+            this.btnSaveImage.Size = new System.Drawing.Size(75, 42);
+            this.btnSaveImage.TabIndex = 1;
+            this.btnSaveImage.Text = "Save image...";
+            this.btnSaveImage.UseVisualStyleBackColor = true;
+            this.btnSaveImage.Click += new System.EventHandler(this.btnSaveImage_Click);
+            // 
+            // btnLoadImage
+            // 
+            this.btnLoadImage.Location = new System.Drawing.Point(9, 19);
+            this.btnLoadImage.Name = "btnLoadImage";
+            this.btnLoadImage.Size = new System.Drawing.Size(75, 42);
+            this.btnLoadImage.TabIndex = 0;
+            this.btnLoadImage.Text = "Load image...";
+            this.btnLoadImage.UseVisualStyleBackColor = true;
+            this.btnLoadImage.Click += new System.EventHandler(this.btnLoadImage_Click);
+            // 
             // FormAes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(520, 255);
+            this.ClientSize = new System.Drawing.Size(515, 562);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Name = "FormAes";
@@ -228,6 +302,8 @@
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -250,6 +326,12 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RadioButton rbCbc;
         private System.Windows.Forms.RadioButton rbEcb;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Button btnSaveImage;
+        private System.Windows.Forms.Button btnLoadImage;
+        private System.Windows.Forms.Button btnEncrypt;
+        private System.Windows.Forms.Button btnDecrypt;
+        private System.Windows.Forms.PictureBox pictureBox;
     }
 }
 

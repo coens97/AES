@@ -1,12 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Aes
 {
     public partial class FormAes : Form
     {
+        private Bitmap _bitmap;
+
         public FormAes()
         {
             InitializeComponent();
@@ -101,6 +108,84 @@ namespace Aes
                 $"{random.Next(0x1000000):X6}" +
                 $"{random.Next(0x1000000):X6}" +
                 $"{random.Next(0x100):X2}";
+        }
+
+        private void btnLoadImage_Click(object sender, EventArgs e)
+        {
+            using (var dlg = new OpenFileDialog())
+            {
+                dlg.Title = "Open Image";
+                dlg.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    _bitmap = new Bitmap(dlg.FileName);
+                    pictureBox.Image = _bitmap;
+                }
+            }
+        }
+
+        private void btnSaveImage_Click(object sender, EventArgs e)
+        {
+            using (var dlg = new SaveFileDialog())
+            {
+                dlg.Title = "Save Image";
+                dlg.Filter = "Image files (*.jpg, *.jpeg, *.jpe, *.jfif, *.png) | *.jpg; *.jpeg; *.jpe; *.jfif; *.png";
+
+                if (dlg.ShowDialog() == DialogResult.OK)
+                {
+                    _bitmap.Save(dlg.FileName);
+                }
+            }
+        }
+
+        private async void btnEncrypt_Click(object sender, EventArgs e)
+        {
+            await Task.Run(() =>
+            {
+                var key = ReadKey();
+
+                pictureBox.Image = null;
+
+                var aes = new AesCipher(BitmapToBytes());
+
+                if (rbEcb.Checked)
+                    aes.CipherEcbStates(key);
+                else
+                    aes.CipherCbcStates(key);
+
+                SetBitmapFromBytes(aes.GetBytes());
+            });
+        }
+
+        public byte[] BitmapToBytes()
+        {
+            Rectangle rect = new Rectangle(0, 0, _bitmap.Width, _bitmap.Height);
+            System.Drawing.Imaging.BitmapData bmpData = _bitmap.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite, _bitmap.PixelFormat);
+
+            // Get the address of the first line.
+            IntPtr ptr = bmpData.Scan0;
+
+            // Declare an array to hold the bytes of the bitmap. 
+            int bytes = Math.Abs(bmpData.Stride) * _bitmap.Height;
+            byte[] rgbValues = new byte[bytes];
+
+            // Copy the RGB values into the array.
+            System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
+            return rgbValues;
+        }
+
+        public void SetBitmapFromBytes(byte[] b)
+        {
+            // this method replaces the old bitmap, since they have the same properties copy from the old bitmap
+            var bitmap = new Bitmap(_bitmap.Width, _bitmap.Height, _bitmap.PixelFormat);
+            var bmData = bitmap.LockBits(new System.Drawing.Rectangle(0, 0, bitmap.Width, bitmap.Height), ImageLockMode.ReadWrite, bitmap.PixelFormat);
+            var pNative = bmData.Scan0;
+            Marshal.Copy(b, 0, pNative, _bitmap.Width * _bitmap.Height * (Image.GetPixelFormatSize(_bitmap.PixelFormat) / 8));
+            bitmap.UnlockBits(bmData);
+
+            _bitmap = bitmap;
+            pictureBox.Image = _bitmap;
         }
     }
 }
