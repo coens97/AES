@@ -8,9 +8,6 @@ namespace Aes
 {
     public class Key
     {
-        private const int NrofRow = 4;
-        private const int NrofCol = 4;
-
         private static readonly byte[] Rcon = 
         {
             // https://en.wikipedia.org/wiki/Rijndael_key_schedule
@@ -105,30 +102,6 @@ namespace Aes
                 s += "\n";
             }
             return (s);
-        }
-
-        public byte[] GetOrignalKey()
-        {
-            var bytes = new byte[NrofCol * NrofRow];
-            for (var i = 0; i < NrofCol; i++)
-            {
-                for (var j = 0; j < NrofRow; j++)
-                {
-                    bytes[i * NrofCol + j] += W[j, i];
-                }
-            }
-            return bytes;
-        }
-
-        public Key GetXorKey(IReadOnlyList<byte> b)
-        {
-            var temp = new byte[NrofCol*NrofRow];
-            var originalKey = GetOrignalKey();
-            for (var i = 0; i < b.Count; i++)
-            {
-                temp[i] = (byte)(b[i] ^ originalKey[i]);
-            }
-            return new Key(temp);
         }
     }
 }

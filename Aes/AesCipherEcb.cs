@@ -83,8 +83,13 @@ namespace Aes
 
         public void CipherCbcStates(Key key)
         {
-            var currentKey = key.GetXorKey(_iv);
-            States[0] = Cipher(currentKey, States[0]);
+            var xorVal = _iv;
+            for (var i = 0; i < States.Length; i++)
+            {
+                States[i] = States[i].Xor(_iv);
+                States[i] = Cipher(key, States[i]);
+                xorVal = States[i].GetBytes();
+            }
         }
 
         public override string ToString()

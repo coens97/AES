@@ -291,5 +291,16 @@ namespace Aes
             }
             return bytes;
         }
+
+        public State Xor(IReadOnlyList<byte> b)
+        {
+            var temp = new byte[NrofCol * NrofRow];
+            var bytes = GetBytes();
+            for (var i = 0; i < b.Count; i++)
+            {
+                temp[i] = (byte)(b[i] ^ bytes[i]);
+            }
+            return new State(temp);
+        }
     }
 }
