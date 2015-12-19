@@ -86,7 +86,7 @@ namespace Aes
             var xorVal = _iv;
             for (var i = 0; i < States.Length; i++)
             {
-                States[i] = States[i].Xor(_iv);
+                States[i] = States[i].Xor(xorVal);
                 States[i] = Cipher(key, States[i]);
                 xorVal = States[i].GetBytes();
             }
