@@ -1,10 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 
 namespace Aes
 {
     public class AesCipher
     {
+        // usualy initialization vector should be randimized (from a hashing method), for the 
+        // purpose to keep it simple chose to use this one to make it easy to test and prove.
+        private readonly byte[] _iv =
+        {
+            0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0A, 0x0B, 0x0C, 0x0D, 0x0E, 0x0F
+        };
         public static State Cipher(Key key, State state)
         {
             state = state
@@ -58,7 +65,7 @@ namespace Aes
             }
         }
 
-        public void CipherStates(Key key)
+        public void CipherEcbStates(Key key)
         {
             for (var i = 0; i < States.Length; i++)
             {
@@ -66,12 +73,18 @@ namespace Aes
             }
         }
 
-        public void CipherInvStates(Key key)
+        public void CipherEcbInvStates(Key key)
         {
             for (var i = 0; i < States.Length; i++)
             {
                 States[i] = CipherInv(key, States[i]);
             }
+        }
+
+        public void CipherCbcStates(Key key)
+        {
+            var currentKey = key.GetXorKey(_iv);
+            States[0] = Cipher(currentKey, States[0]);
         }
 
         public override string ToString()

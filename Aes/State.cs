@@ -6,7 +6,7 @@ namespace Aes
     {
         private const int NrofRow = 4;
         private const int NrofCol = 4;
-        private byte[,] _buf;
+        private readonly byte[,] _buf;
 
         #region mul
         //multiplication tables taken from http://en.wikipedia.org/wiki/Rijndael_mix_columns

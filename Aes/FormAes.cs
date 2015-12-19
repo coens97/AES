@@ -53,7 +53,7 @@ namespace Aes
             var aes = new AesCipher(inputPlain);
             Console.Out.WriteLine("state:\n" + aes.ToMatrixString());
 
-            aes.CipherStates(key);
+            aes.CipherEcbStates(key);
 
             Console.Out.WriteLine("result:\n" + aes.ToMatrixString());
 
@@ -68,7 +68,7 @@ namespace Aes
             var aes = new AesCipher(decodeCipher);
             Console.Out.WriteLine("state:\n" + aes.ToMatrixString());
 
-            aes.CipherInvStates(key);
+            aes.CipherEcbInvStates(key);
 
             Console.Out.WriteLine("result:\n" + aes.ToMatrixString());
 

@@ -18,9 +18,14 @@ namespace IntegrationTestAes
            0x6b, 0xc1, 0xbe, 0xe2, 0x2e, 0x40, 0x9f, 0x96, 0xe9, 0x3d, 0x7e, 0x11, 0x73, 0x93, 0x17, 0x2a
         };
 
-        private readonly byte[] _expectedResult =
+        private readonly byte[] _expectedResultEcb =
         {
             0x3a, 0xd7, 0x7b, 0xb4, 0x0d, 0x7a, 0x36, 0x60, 0xa8, 0x9e, 0xca, 0xf3, 0x24, 0x66, 0xef, 0x97
+        };
+
+        private readonly byte[] _expectedResultCbc =
+        {
+            0x76, 0x49, 0xab, 0xac, 0x81, 0x19, 0xb2, 0x46, 0xce, 0xe9, 0x8e, 0x9b, 0x12, 0xe9, 0x19, 0x7d
         };
 
         [TestMethod]
@@ -29,7 +34,7 @@ namespace IntegrationTestAes
             var key = new Key(_bkey);
 
             var inputState = new State(_input);
-            var expectedState = new State(_expectedResult);
+            var expectedState = new State(_expectedResultEcb);
 
             var cipher = AesCipher.Cipher(key, inputState);
 
@@ -42,11 +47,24 @@ namespace IntegrationTestAes
             var key = new Key(_bkey);
 
             var expectedNormal = new State(_input);
-            var expectedState = new State(_expectedResult);
+            var expectedState = new State(_expectedResultEcb);
 
             var normal = AesCipher.CipherInv(key, expectedState);
 
             Assert.AreEqual(normal.ToString(), expectedNormal.ToString());
+        }
+
+        [TestMethod]
+        public void TestAesCipherCbc()
+        {
+            var key = new Key(_bkey);
+
+            var aes = new AesCipher(_input);
+            var expectedState = new State(_expectedResultCbc);
+
+            aes.CipherCbcStates(key);
+
+            Assert.AreEqual(aes.States[0].ToString(), expectedState.ToString());
         }
 
         [TestMethod]

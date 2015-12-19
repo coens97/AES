@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Aes;
 
@@ -209,6 +210,17 @@ namespace UnitTestProject
 
             Console.Out.WriteLine("add7:\n" + start);
             Assert.AreEqual(start.ToString(), expectedState.ToString());
+        }
+        [TestMethod]
+        public void TestKeyGetOriginal()
+        {
+            byte[] inputKey = { 0x11, 0x22, 0x33, 0x44,
+                                0x55, 0x66, 0x77, 0x88,
+                                0x99, 0x00, 0xaa, 0xbb,
+                                0xcc, 0xdd, 0xee, 0xff };
+            var key = new Key(inputKey);
+            var orignal = key.GetOrignalKey();
+            Assert.IsTrue(inputKey.SequenceEqual(orignal));
         }
     }
 }
