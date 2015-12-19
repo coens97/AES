@@ -40,7 +40,12 @@
             this.btnClearCipher = new System.Windows.Forms.Button();
             this.btnClearPlain = new System.Windows.Forms.Button();
             this.btnNewKey = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.rbCbc = new System.Windows.Forms.RadioButton();
+            this.rbEcb = new System.Windows.Forms.RadioButton();
+            this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // tbPlain
@@ -53,7 +58,7 @@
             // 
             // tbKey
             // 
-            this.tbKey.Location = new System.Drawing.Point(59, 9);
+            this.tbKey.Location = new System.Drawing.Point(46, 22);
             this.tbKey.Name = "tbKey";
             this.tbKey.Size = new System.Drawing.Size(386, 20);
             this.tbKey.TabIndex = 1;
@@ -62,11 +67,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(19, 12);
+            this.label1.Location = new System.Drawing.Point(6, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(24, 13);
+            this.label1.Size = new System.Drawing.Size(25, 13);
             this.label1.TabIndex = 8;
-            this.label1.Text = "key";
+            this.label1.Text = "Key";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label4
@@ -127,7 +132,7 @@
             this.groupBox1.Controls.Add(this.tbPlain);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.btnDecode);
-            this.groupBox1.Location = new System.Drawing.Point(13, 35);
+            this.groupBox1.Location = new System.Drawing.Point(7, 98);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(501, 126);
             this.groupBox1.TabIndex = 18;
@@ -136,7 +141,7 @@
             // 
             // btnClearCipher
             // 
-            this.btnClearCipher.Location = new System.Drawing.Point(434, 87);
+            this.btnClearCipher.Location = new System.Drawing.Point(438, 87);
             this.btnClearCipher.Name = "btnClearCipher";
             this.btnClearCipher.Size = new System.Drawing.Size(51, 20);
             this.btnClearCipher.TabIndex = 21;
@@ -156,7 +161,7 @@
             // 
             // btnNewKey
             // 
-            this.btnNewKey.Location = new System.Drawing.Point(451, 9);
+            this.btnNewKey.Location = new System.Drawing.Point(438, 22);
             this.btnNewKey.Name = "btnNewKey";
             this.btnNewKey.Size = new System.Drawing.Size(51, 20);
             this.btnNewKey.TabIndex = 19;
@@ -164,21 +169,66 @@
             this.btnNewKey.UseVisualStyleBackColor = true;
             this.btnNewKey.Click += new System.EventHandler(this.btnNewKey_Click);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.rbCbc);
+            this.groupBox2.Controls.Add(this.rbEcb);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.btnNewKey);
+            this.groupBox2.Controls.Add(this.tbKey);
+            this.groupBox2.Location = new System.Drawing.Point(7, 9);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(501, 83);
+            this.groupBox2.TabIndex = 20;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Settings";
+            // 
+            // rbCbc
+            // 
+            this.rbCbc.AutoSize = true;
+            this.rbCbc.Location = new System.Drawing.Point(98, 52);
+            this.rbCbc.Name = "rbCbc";
+            this.rbCbc.Size = new System.Drawing.Size(46, 17);
+            this.rbCbc.TabIndex = 22;
+            this.rbCbc.Text = "CBC";
+            this.rbCbc.UseVisualStyleBackColor = true;
+            // 
+            // rbEcb
+            // 
+            this.rbEcb.AutoSize = true;
+            this.rbEcb.Checked = true;
+            this.rbEcb.Location = new System.Drawing.Point(46, 52);
+            this.rbEcb.Name = "rbEcb";
+            this.rbEcb.Size = new System.Drawing.Size(46, 17);
+            this.rbEcb.TabIndex = 21;
+            this.rbEcb.TabStop = true;
+            this.rbEcb.Text = "ECB";
+            this.rbEcb.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(6, 52);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(34, 13);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "Mode";
+            // 
             // FormAes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(520, 240);
-            this.Controls.Add(this.btnNewKey);
+            this.ClientSize = new System.Drawing.Size(520, 255);
+            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.tbKey);
             this.Name = "FormAes";
             this.Text = "Don\'t eavesdrop please";
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -196,6 +246,10 @@
         private System.Windows.Forms.Button btnNewKey;
         private System.Windows.Forms.Button btnClearCipher;
         private System.Windows.Forms.Button btnClearPlain;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.RadioButton rbCbc;
+        private System.Windows.Forms.RadioButton rbEcb;
     }
 }
 

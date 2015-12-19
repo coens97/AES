@@ -92,7 +92,7 @@ namespace Aes
             }
         }
 
-        public void CipherInvCbcStates(Key key)
+        public void CipherCbcInvStates(Key key)
         {
             var xorVal = States[0].GetBytes();
             States[0] = CipherInv(key, States[0]);
