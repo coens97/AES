@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 
@@ -53,15 +54,14 @@ namespace Aes
         }
 
         public State[] States { get; private set; }
-        public AesCipher(byte[] b)
+        public AesCipher(IReadOnlyList<byte> b)
         {
-            var length = (b.Length - 1) / 16 + 1;
+            var length = (b.Count - 1) / 16 + 1;
             States = new State[length];
 
             for (var i = 0; i < length; i++)
             {
-                var bytes = b.Skip(i * 16).Take(16).ToArray();
-                States[i] = new State(bytes);
+                States[i] = new State(b, i);
             }
         }
 

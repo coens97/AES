@@ -139,15 +139,17 @@ namespace Aes
             }
         }
 
-        public State(IReadOnlyList<byte> b)
+        public State(IReadOnlyList<byte> b) : this(b, 0) { }
+
+        public State(IReadOnlyList<byte> b, int nr)
         {
             _buf = new byte[NrofRow, NrofCol];
             for (var i = 0; i < NrofRow; i++)
             {
                 for (var j = 0; j < NrofCol; j++)
                 {
-                    var index = i + (NrofRow * j);
-                    _buf[i, j] = index < b .Count ? b[index] : (byte)0x0;
+                    var index = nr * 16 + i + (NrofRow * j);
+                    _buf[i, j] = index < b.Count ? b[index] : (byte)0x0; // TODO : Performance issue
                 }
             }
         }
