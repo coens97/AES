@@ -92,6 +92,21 @@ namespace Aes
             }
         }
 
+        public void CipherInvCbcStates(Key key)
+        {
+            var xorVal = States[0].GetBytes();
+            States[0] = CipherInv(key, States[0]);
+            States[0] = States[0].Xor(_iv);
+
+            for (var i = 1; i < States.Length; i++)
+            {
+                var nextXorVal = States[i].GetBytes();
+                States[i] = CipherInv(key, States[i]);
+                States[i] = States[i].Xor(xorVal);
+                xorVal = nextXorVal;
+            }
+        }
+
         public override string ToString()
         {
             return States.Aggregate(string.Empty, (current, state) => current + state.ToString());
