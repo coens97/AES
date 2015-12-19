@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -13,6 +14,7 @@ namespace Aes
     public partial class FormAes : Form
     {
         private Bitmap _bitmap;
+        private Stopwatch _sw = new Stopwatch();
 
         public FormAes()
         {
@@ -141,6 +143,8 @@ namespace Aes
 
         private async void btnEncrypt_Click(object sender, EventArgs e)
         {
+            // await cause it takes soooo long and it keeps the window respondible
+            StartProcess();
             await Task.Run(() =>
             {
                 var key = ReadKey();
@@ -156,6 +160,43 @@ namespace Aes
 
                 SetBitmapFromBytes(aes.GetBytes());
             });
+            EndProcess();
+        }
+
+        private async void btnDecrypt_Click(object sender, EventArgs e)
+        {
+            // await cause it takes soooo long and it keeps the window respondible
+            StartProcess();
+            await Task.Run(() =>
+            {
+                var key = ReadKey();
+
+                pictureBox.Image = null;
+
+                var aes = new AesCipher(BitmapToBytes());
+
+                if (rbEcb.Checked)
+                    aes.CipherEcbInvStates(key);
+                else
+                    aes.CipherCbcInvStates(key);
+
+                SetBitmapFromBytes(aes.GetBytes());
+            });
+            EndProcess();
+        }
+
+        private void StartProcess()
+        {
+            _sw.Start();
+            progressBar.Style = ProgressBarStyle.Marquee;
+        }
+
+        private void EndProcess()
+        {
+            _sw.Stop();
+            lbTime.Text = $"Elapsed:\n{_sw.Elapsed}";
+            
+            progressBar.Style = ProgressBarStyle.Blocks;
         }
 
         public byte[] BitmapToBytes()

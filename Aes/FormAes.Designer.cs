@@ -50,6 +50,8 @@
             this.btnEncrypt = new System.Windows.Forms.Button();
             this.btnSaveImage = new System.Windows.Forms.Button();
             this.btnLoadImage = new System.Windows.Forms.Button();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.lbTime = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -225,6 +227,8 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.lbTime);
+            this.groupBox3.Controls.Add(this.progressBar);
             this.groupBox3.Controls.Add(this.pictureBox);
             this.groupBox3.Controls.Add(this.btnDecrypt);
             this.groupBox3.Controls.Add(this.btnEncrypt);
@@ -240,9 +244,9 @@
             // pictureBox
             // 
             this.pictureBox.BackColor = System.Drawing.Color.White;
-            this.pictureBox.Location = new System.Drawing.Point(91, 20);
+            this.pictureBox.Location = new System.Drawing.Point(118, 20);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(398, 293);
+            this.pictureBox.Size = new System.Drawing.Size(371, 293);
             this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.pictureBox.TabIndex = 23;
             this.pictureBox.TabStop = false;
@@ -251,10 +255,11 @@
             // 
             this.btnDecrypt.Location = new System.Drawing.Point(9, 161);
             this.btnDecrypt.Name = "btnDecrypt";
-            this.btnDecrypt.Size = new System.Drawing.Size(75, 42);
+            this.btnDecrypt.Size = new System.Drawing.Size(103, 42);
             this.btnDecrypt.TabIndex = 22;
             this.btnDecrypt.Text = "Decrypt";
             this.btnDecrypt.UseVisualStyleBackColor = true;
+            this.btnDecrypt.Click += new System.EventHandler(this.btnDecrypt_Click);
             // 
             // btnEncrypt
             // 
@@ -262,7 +267,7 @@
             this.btnEncrypt.Location = new System.Drawing.Point(9, 114);
             this.btnEncrypt.Margin = new System.Windows.Forms.Padding(2);
             this.btnEncrypt.Name = "btnEncrypt";
-            this.btnEncrypt.Size = new System.Drawing.Size(75, 42);
+            this.btnEncrypt.Size = new System.Drawing.Size(103, 42);
             this.btnEncrypt.TabIndex = 22;
             this.btnEncrypt.Text = "Encrypt";
             this.btnEncrypt.UseVisualStyleBackColor = false;
@@ -272,7 +277,7 @@
             // 
             this.btnSaveImage.Location = new System.Drawing.Point(9, 67);
             this.btnSaveImage.Name = "btnSaveImage";
-            this.btnSaveImage.Size = new System.Drawing.Size(75, 42);
+            this.btnSaveImage.Size = new System.Drawing.Size(103, 42);
             this.btnSaveImage.TabIndex = 1;
             this.btnSaveImage.Text = "Save image...";
             this.btnSaveImage.UseVisualStyleBackColor = true;
@@ -282,11 +287,27 @@
             // 
             this.btnLoadImage.Location = new System.Drawing.Point(9, 19);
             this.btnLoadImage.Name = "btnLoadImage";
-            this.btnLoadImage.Size = new System.Drawing.Size(75, 42);
+            this.btnLoadImage.Size = new System.Drawing.Size(103, 42);
             this.btnLoadImage.TabIndex = 0;
             this.btnLoadImage.Text = "Load image...";
             this.btnLoadImage.UseVisualStyleBackColor = true;
             this.btnLoadImage.Click += new System.EventHandler(this.btnLoadImage_Click);
+            // 
+            // progressBar
+            // 
+            this.progressBar.Location = new System.Drawing.Point(9, 249);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(103, 23);
+            this.progressBar.TabIndex = 24;
+            // 
+            // lbTime
+            // 
+            this.lbTime.AutoSize = true;
+            this.lbTime.Location = new System.Drawing.Point(6, 275);
+            this.lbTime.Name = "lbTime";
+            this.lbTime.Size = new System.Drawing.Size(51, 13);
+            this.lbTime.TabIndex = 26;
+            this.lbTime.Text = "Elasped: ";
             // 
             // FormAes
             // 
@@ -303,6 +324,7 @@
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
 
@@ -332,6 +354,8 @@
         private System.Windows.Forms.Button btnEncrypt;
         private System.Windows.Forms.Button btnDecrypt;
         private System.Windows.Forms.PictureBox pictureBox;
+        private System.Windows.Forms.Label lbTime;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }
 
