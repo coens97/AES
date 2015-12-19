@@ -187,6 +187,7 @@ namespace Aes
 
         private void StartProcess()
         {
+            _sw.Reset();
             _sw.Start();
             progressBar.Style = ProgressBarStyle.Marquee;
         }
